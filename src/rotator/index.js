@@ -66,13 +66,6 @@ class TextRotator extends Component {
   }
 
   renderWord(word = "", wordIndex, currentIndex, previousIndex) {
-    const letterClass =
-      wordIndex === previousIndex
-        ? "out"
-        : wordIndex === currentIndex
-          ? "in"
-          : undefined;
-    console.log("letterClass: ", letterClass);
     const things = {
       out: {
         animationClass: "out",
@@ -105,10 +98,6 @@ class TextRotator extends Component {
           className={letterInfo.className}
           animationClass={letterInfo.animationClass}
         />
-
-        // <span className={classnames("letter", letterClass)} key={index}>
-        //   {letter}
-        // </span>
       );
     });
   }
@@ -148,17 +137,10 @@ class Letter extends Component {
 
   componentDidMount() {
     this.updateClassName(this.props);
-    // setTimeout(() => {
-    //   console.log("applying class: ", this.props.className);
-    //   this.setState({
-    //     animationClass: this.props.className,
-    //   });
-    // }, this.props.delay);
   }
 
   updateClassName(props = this.props) {
     setTimeout(() => {
-      console.log("applying animationClass: ", props.animationClass);
       this.setState({
         animationClass: props.animationClass,
       });
