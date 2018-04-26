@@ -66,14 +66,16 @@ class TextRotator extends Component {
   }
 
   renderWord(word = "", wordIndex, currentIndex, previousIndex) {
-    const things = {
+    const delayOffset = 340;
+    const delayMultiple = 80;
+    const animations = {
       out: {
         animationClass: "out",
-        getDelay: index => index * 80,
+        getDelay: index => index * delayMultiple,
       },
       in: {
         animationClass: "in",
-        getDelay: index => 340 + index * 80,
+        getDelay: index => delayOffset + index * delayMultiple,
         className: "behind",
       },
       default: {
@@ -84,12 +86,14 @@ class TextRotator extends Component {
 
     const letterInfo =
       wordIndex === previousIndex
-        ? things.out
+        ? animations.out
         : wordIndex === currentIndex
-          ? things.in
-          : things.default;
+          ? animations.in
+          : animations.default;
 
     return word.split("").map((letter, index) => {
+      letter = letter === " " ? "\u00A0" : letter;
+
       return (
         <Letter
           key={index}
@@ -140,6 +144,9 @@ class Letter extends Component {
   }
 
   updateClassName(props = this.props) {
+    this.setState({
+      animationClass: undefined,
+    });
     setTimeout(() => {
       this.setState({
         animationClass: props.animationClass,
