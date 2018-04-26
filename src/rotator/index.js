@@ -134,7 +134,10 @@ class Letter extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.className !== prevProps.className) {
+    if (
+      this.props.className !== prevProps.className ||
+      this.props.animationClass !== prevProps.animationClass
+    ) {
       this.updateClassName(this.props);
     }
   }
